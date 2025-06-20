@@ -249,91 +249,91 @@ def main():
     outdoor_device_id = indoor_to_outdoor_mapping.get(selected_device)
 
     if st.button("Generate Seasonal Comparison"):
-        st.spinner("Generating Charts...")
-        try:
-            # Connect to database
-            conn = mysql.connector.connect(**indoor_db_config)
-            cursor = conn.cursor()
+        with st.spinner("Generating Charts...please wait"):
+            try:
+                # Connect to database
+                conn = mysql.connector.connect(**indoor_db_config)
+                cursor = conn.cursor()
 
-            # Fetch indoor data
-            indoor_query = """
-                SELECT datetime, {}
-                FROM reading_db
-                WHERE deviceID = %s 
-                AND (
-                    (YEAR(datetime) = 2024)
-                    OR (YEAR(datetime) = 2025 AND MONTH(datetime) <= 3)
-                )
-            """.format(selected_pollutant)
-
-            cursor.execute(indoor_query, (selected_device,))
-            indoor_rows = cursor.fetchall()
-
-            if indoor_rows:
-                indoor_df = pd.DataFrame(indoor_rows, columns=["datetime", selected_pollutant])
-                indoor_df['datetime'] = pd.to_datetime(indoor_df['datetime'])
-                indoor_df.set_index('datetime', inplace=True)
-
-                # Fetch outdoor data if mapping exists
-                outdoor_df = None
-                if outdoor_device_id:
-                    outdoor_query = """
-                        SELECT datetime, {}
-                        FROM cpcb_data
-                        WHERE deviceID = %s 
-                        AND (
-                            (YEAR(datetime) = 2024)
-                            OR (YEAR(datetime) = 2025 AND MONTH(datetime) <= 3)
-                        )
-                    """.format(selected_pollutant)
-
-                    cursor.execute(outdoor_query, (outdoor_device_id,))
-                    outdoor_rows = cursor.fetchall()
-
-                    if outdoor_rows:
-                        outdoor_df = pd.DataFrame(outdoor_rows, columns=["datetime", selected_pollutant])
-                        outdoor_df['datetime'] = pd.to_datetime(outdoor_df['datetime'])
-                        outdoor_df.set_index('datetime', inplace=True)
-
-                # Generate plots
-                fig_indoor, fig_outdoor, indoor_data, outdoor_data = plot_seasonal_comparison(
-                    indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant
-                )
-
-                # Display plots
-                st.plotly_chart(fig_indoor, use_container_width=True)
-                if outdoor_df is not None:
-                    st.plotly_chart(fig_outdoor, use_container_width=True)
-
-                # Add download buttons
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.download_button(
-                        label="Download Indoor Seasonal Data",
-                        data=indoor_data.to_csv(),
-                        file_name=f"indoor_{selected_pollutant}_seasonal_data.csv",
-                        mime="text/csv"
+                # Fetch indoor data
+                indoor_query = """
+                    SELECT datetime, {}
+                    FROM reading_db
+                    WHERE deviceID = %s 
+                    AND (
+                        (YEAR(datetime) = 2024)
+                        OR (YEAR(datetime) = 2025 AND MONTH(datetime) <= 3)
                     )
-                if outdoor_df is not None:
-                    with col2:
+                """.format(selected_pollutant)
+
+                cursor.execute(indoor_query, (selected_device,))
+                indoor_rows = cursor.fetchall()
+
+                if indoor_rows:
+                    indoor_df = pd.DataFrame(indoor_rows, columns=["datetime", selected_pollutant])
+                    indoor_df['datetime'] = pd.to_datetime(indoor_df['datetime'])
+                    indoor_df.set_index('datetime', inplace=True)
+
+                    # Fetch outdoor data if mapping exists
+                    outdoor_df = None
+                    if outdoor_device_id:
+                        outdoor_query = """
+                            SELECT datetime, {}
+                            FROM cpcb_data
+                            WHERE deviceID = %s 
+                            AND (
+                                (YEAR(datetime) = 2024)
+                                OR (YEAR(datetime) = 2025 AND MONTH(datetime) <= 3)
+                            )
+                        """.format(selected_pollutant)
+
+                        cursor.execute(outdoor_query, (outdoor_device_id,))
+                        outdoor_rows = cursor.fetchall()
+
+                        if outdoor_rows:
+                            outdoor_df = pd.DataFrame(outdoor_rows, columns=["datetime", selected_pollutant])
+                            outdoor_df['datetime'] = pd.to_datetime(outdoor_df['datetime'])
+                            outdoor_df.set_index('datetime', inplace=True)
+
+                    # Generate plots
+                    fig_indoor, fig_outdoor, indoor_data, outdoor_data = plot_seasonal_comparison(
+                        indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant
+                    )
+
+                    # Display plots
+                    st.plotly_chart(fig_indoor, use_container_width=True)
+                    if outdoor_df is not None:
+                        st.plotly_chart(fig_outdoor, use_container_width=True)
+
+                    # Add download buttons
+                    col1, col2 = st.columns(2)
+                    with col1:
                         st.download_button(
-                            label="Download Outdoor Seasonal Data",
-                            data=outdoor_data.to_csv(),
-                            file_name=f"outdoor_{selected_pollutant}_seasonal_data.csv",
+                            label="Download Indoor Seasonal Data",
+                            data=indoor_data.to_csv(),
+                            file_name=f"indoor_{selected_pollutant}_seasonal_data.csv",
                             mime="text/csv"
                         )
+                    if outdoor_df is not None:
+                        with col2:
+                            st.download_button(
+                                label="Download Outdoor Seasonal Data",
+                                data=outdoor_data.to_csv(),
+                                file_name=f"outdoor_{selected_pollutant}_seasonal_data.csv",
+                                mime="text/csv"
+                            )
 
-            else:
-                st.warning("No data found for the selected device.")
+                else:
+                    st.warning("No data found for the selected device.")
 
-        except mysql.connector.Error as e:
-            st.error(f"Database error: {e}")
-        except Exception as e:
-            st.error(f"An unexpected error occurred: {e}")
-        finally:
-            if 'conn' in locals() and conn.is_connected():
-                cursor.close()
-                conn.close()
+            except mysql.connector.Error as e:
+                st.error(f"Database error: {e}")
+            except Exception as e:
+                st.error(f"An unexpected error occurred: {e}")
+            finally:
+                if 'conn' in locals() and conn.is_connected():
+                    cursor.close()
+                    conn.close()
 
 if __name__ == "__main__":
     main()
