@@ -292,7 +292,7 @@ def main():
 
                 # Generate plots
                 fig_indoor, fig_outdoor, indoor_data, outdoor_data = plot_seasonal_comparison(
-                    indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant_display
+                    indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant
                 )
 
                 # Display plots
