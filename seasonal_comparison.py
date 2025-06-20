@@ -16,6 +16,15 @@ st.set_page_config(
     layout='wide'
 )
 
+# Hide Streamlit's default header and footer
+st.markdown("""
+    <style>
+        .reportview-container {
+            display: none;
+        }
+    </style>
+""")
+
 # Database credentials from environment variables
 indoor_db_config = {
     "host": os.getenv("INDOOR_DB_HOST"),
