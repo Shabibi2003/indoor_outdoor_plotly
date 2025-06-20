@@ -228,6 +228,8 @@ def main():
     with col1:
         selected_device = st.selectbox("Select Device:", list(device_data.keys()), 
                                      format_func=lambda x: f"{device_data[x][2]} ({x})")
+    st.markdown("<br>", unsafe_allow_html=True)  # Add a line break for better layout
+
     with col2:
         pollutant_options = {
             "PM2.5": "pm25",
