@@ -1,5 +1,9 @@
-streamlit
-numpy
-pandas
+pymysql==1.1.0
+pandas==2.2.3
+python-dotenv==1.0.1
 plotly
+mysql-connector-python
+sqlalchemy
 seaborn
+matplotlib
+numpy
