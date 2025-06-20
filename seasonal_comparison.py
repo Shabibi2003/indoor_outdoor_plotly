@@ -223,26 +223,26 @@ def main():
     st.title("Seasonal Data Comparison")
     st.write("Compare indoor and outdoor air quality patterns across seasons")
 
-    # Create device selection
-    device_ids = list(device_data.keys())
-    selected_device = st.selectbox("Select Device:", device_ids, 
-                                 format_func=lambda x: f"{device_data[x][2]} ({x})")
+    # Create device and pollutant selection in two columns
+    col1, col2 = st.columns(2)
+    with col1:
+        selected_device = st.selectbox("Select Device:", list(device_data.keys()), 
+                                     format_func=lambda x: f"{device_data[x][2]} ({x})")
+    with col2:
+        pollutant_options = {
+            "PM2.5": "pm25",
+            "PM10": "pm10",
+            "AQI": "aqi",
+            "CO2": "co2",
+            "VOC": "voc",
+            "Temperature": "temp",
+            "Humidity": "humidity"
+        }
+        selected_pollutant_display = st.selectbox("Select Pollutant:", list(pollutant_options.keys()))
+        selected_pollutant = pollutant_options[selected_pollutant_display]
 
-    # Get outdoor device ID
+    # Assign outdoor_device_id after select boxes
     outdoor_device_id = indoor_to_outdoor_mapping.get(selected_device)
-
-    # Select pollutant
-    pollutant_options = {
-        "PM2.5": "pm25",
-        "PM10": "pm10",
-        "AQI": "aqi",
-        "CO2": "co2",
-        "VOC": "voc",
-        "Temperature": "temp",
-        "Humidity": "humidity"
-    }
-    selected_pollutant_display = st.selectbox("Select Pollutant:", list(pollutant_options.keys()))
-    selected_pollutant = pollutant_options[selected_pollutant_display]
 
     if st.button("Generate Seasonal Comparison"):
         try:
