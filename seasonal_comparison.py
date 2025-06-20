@@ -225,28 +225,8 @@ def main():
 
     # Create device selection
     device_ids = list(device_data.keys())
-    # Custom CSS to resize the selectbox
-    st.markdown("""
-        <style>
-        div[data-baseweb="select"] > div {
-            font-size: 14px !important;
-            min-height: 30px !important;
-        }
-        label {
-            font-size: 14px !important;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-    
-    # Your selectbox
-    selected_device = st.selectbox(
-        "Select Device:",
-        device_ids,
-        format_func=lambda x: f"{device_data[x][2]} ({x})"
-    )
-
-    # selected_device = st.selectbox("Select Device:", device_ids, 
-    #                              format_func=lambda x: f"{device_data[x][2]} ({x})")
+    selected_device = st.selectbox("Select Device:", device_ids, 
+                                 format_func=lambda x: f"{device_data[x][2]} ({x})")
 
     # Get outdoor device ID
     outdoor_device_id = indoor_to_outdoor_mapping.get(selected_device)
