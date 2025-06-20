@@ -16,14 +16,7 @@ st.set_page_config(
     layout='wide'
 )
 
-# Hide Streamlit's default header and footer
-st.markdown("""
-    <style>
-        .reportview-container {
-            display: none;
-        }
-    </style>
-""")
+
 
 # Database credentials from environment variables
 indoor_db_config = {
@@ -256,7 +249,7 @@ def main():
     outdoor_device_id = indoor_to_outdoor_mapping.get(selected_device)
 
     if st.button("Generate Seasonal Comparison"):
-        # st.spinner("Generating Charts", use_container_width=True)
+        st.spinner("Generating Charts...")
         try:
             # Connect to database
             conn = mysql.connector.connect(**indoor_db_config)
