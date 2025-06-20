@@ -247,7 +247,7 @@ def main():
     outdoor_device_id = indoor_to_outdoor_mapping.get(selected_device)
 
     if st.button("Generate Seasonal Comparison"):
-        st.spinner("Generating Charts", use_container_width=True)
+        # st.spinner("Generating Charts", use_container_width=True)
         try:
             # Connect to database
             conn = mysql.connector.connect(**indoor_db_config)
