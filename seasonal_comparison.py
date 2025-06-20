@@ -30,8 +30,8 @@ indoor_db_config = {
 device_data = {
         "1201240075": ("Hines Office, 12th Floor, One Horizon Centre, Sec-43, Gurugram", "Office","Hines Office 1"),
         "1201240078": ("Hines Office, 12th Floor, One Horizon Centre, Sec-43, Gurugram", "Office","Hines Office 2"),
-        "1202240026": ("D-1/25 Vasant Vihar, New Delhi-110057(EDS Delhi)", "Office","EDS D Block "),
-        "1202240025": ("D-1/25 Vasant Vihar, New Delhi-110057(EDS Delhi)", "Office","EDS D Block "),
+        "1202240026": ("D-1/25 Vasant Vihar, New Delhi-110057(EDS Delhi)", "Office","EDS D Block 2 "),
+        "1202240025": ("D-1/25 Vasant Vihar, New Delhi-110057(EDS Delhi)", "Office","EDS D Block 1"),
         "1203240081": ("26A Poorvi Marg, Vasant Vihar, New Delhi-110057 (EDS, E-Block, Delhi)", "Office","EDS E Block"),
         "1202240011": ("D-188, Abul Fazal Enclave-I, Jamia Nagar, New Delhi-110025", "Apartment","Mariyam Living Room"),
         "1202240027": ("D-188, Abul Fazal Enclave-I, Jamia Nagar, New Delhi-110025", "Apartment","Mariyam Bedroom"),
