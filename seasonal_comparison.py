@@ -57,10 +57,10 @@ device_data = {
         "1201240074": ("F-5, 318-N, Chirag Delhi, Delhi-110017", "Residential","Abhishek Living Room"),
         "1203240077": ("B-2/51-A, Keshav Puram", "Apartment","Gurneet Mannat Room"),
         "1203240082": ("B-2/51-A, Keshav Puram", "Apartment","Gurneet Prabhansh Room"),
-        "1202240029": ("St. Mary's School, Dwarka Sec-19", "Office","St. Mary's School"),
-        "1202240028": ("St. Mary's School, Dwarka Sec-19", "Office","St. Mary's School"),
-        "1202240010": ("St. Mary's School, Dwarka Sec-19", "Office","St. Mary's School"),
-        "1202240012": ("St. Mary's School, Dwarka Sec-19", "School","St. Mary's School"),
+        "1202240029": ("St. Mary's School, Dwarka Sec-19", "Office","St. Mary's School (XII C)"),
+        "1202240028": ("St. Mary's School, Dwarka Sec-19", "Office","St. Mary's School (sr. Library)"),
+        "1202240010": ("St. Mary's School, Dwarka Sec-19", "Office","St. Mary's School (Middle Computer Lab)"),
+        "1202240012": ("St. Mary's School, Dwarka Sec-19", "School","St. Mary's School (Chemistry Lab)"),
     }
 
 # Mapping of indoor device IDs to outdoor device IDs
