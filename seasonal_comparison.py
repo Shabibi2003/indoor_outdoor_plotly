@@ -99,13 +99,12 @@ indoor_to_outdoor_mapping = {
     }
 
 def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
-    # Define seasons with their months and colors
     seasons = {
-        "Spring": ([3, 4], '#90EE90'),      # March 2024, April 2024, March 2025
-        "Summer": ([5, 6], '#FFD700'),      # May 2024, June 2024
-        "Monsoon": ([7, 8, 9], '#FFA500'),  # July 2024, August 2024, September 2024
-        "Autumn": ([10, 11], '#D2691E'),    # October 2024, November 2024
-        "Winter": ([12, 1, 2], '#87CEEB')   # December 2024, January 2024/2025, February 2024/2025
+        "Spring": ([3, 4], '#90EE90'),
+        "Summer": ([5, 6], '#FFD700'),
+        "Monsoon": ([7, 8, 9], '#FFA500'),
+        "Autumn": ([10, 11], '#D2691E'),
+        "Winter": ([12, 1, 2], '#87CEEB')
     }
 
     # Create figures for both indoor and outdoor data
