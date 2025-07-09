@@ -299,6 +299,13 @@ def main():
 
                     # Generate plots
                     fig_season_compare = go.Figure()
+                    seasons = {
+                            "Spring": ([3, 4], '#90EE90'),
+                            "Summer": ([5, 6], '#FFD700'),
+                            "Monsoon": ([7, 8, 9], '#FFA500'),
+                            "Autumn": ([10, 11], '#D2691E'),
+                            "Winter": ([12, 1, 2], '#87CEEB')
+                        }
                     # Overlay both indoor and outdoor for each season
                     for season, (months, color) in seasons.items():
                         # Indoor
