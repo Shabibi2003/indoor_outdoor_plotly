@@ -221,6 +221,64 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
 
     return fig_indoor, fig_outdoor, indoor_download_data, outdoor_download_data
 
+def plot_seasonal_indoor_outdoor(indoor_df, outdoor_df, location, pollutant):
+    seasons = {
+        "Spring": ([3, 4], '#90EE90'),
+        "Summer": ([5, 6], '#FFD700'),
+        "Monsoon": ([7, 8, 9], '#FFA500'),
+        "Autumn": ([10, 11], '#D2691E'),
+        "Winter": ([12, 1, 2], '#87CEEB')
+    }
+    figs = []
+    for season, (months, color) in seasons.items():
+        if season == "Winter":
+            indoor_season = indoor_df[((indoor_df.index.month == 12) & (indoor_df.index.year == 2024)) |
+                                      ((indoor_df.index.month.isin([1, 2])) & (indoor_df.index.year == 2025))]
+            outdoor_season = outdoor_df[((outdoor_df.index.month == 12) & (outdoor_df.index.year == 2024)) |
+                                        ((outdoor_df.index.month.isin([1, 2])) & (outdoor_df.index.year == 2025))] if outdoor_df is not None else None
+        else:
+            if season == "Spring":
+                indoor_season = indoor_df[((indoor_df.index.month.isin(months)) & (indoor_df.index.year == 2024)) |
+                                          ((indoor_df.index.month == 3) & (indoor_df.index.year == 2025))]
+                outdoor_season = outdoor_df[((outdoor_df.index.month.isin(months)) & (outdoor_df.index.year == 2024)) |
+                                              ((outdoor_df.index.month == 3) & (outdoor_df.index.year == 2025))] if outdoor_df is not None else None
+            else:
+                indoor_season = indoor_df[(indoor_df.index.month.isin(months)) & (indoor_df.index.year == 2024)]
+                outdoor_season = outdoor_df[(outdoor_df.index.month.isin(months)) & (outdoor_df.index.year == 2024)] if outdoor_df is not None else None
+        indoor_season = indoor_season[indoor_season[pollutant] != 0]
+        if outdoor_season is not None:
+            outdoor_season = outdoor_season[outdoor_season[pollutant] != 0]
+        fig = go.Figure()
+        hours = list(range(24))
+        if not indoor_season.empty:
+            indoor_hourly = indoor_season[pollutant].groupby(indoor_season.index.hour).mean()
+            fig.add_trace(go.Scatter(
+                x=hours,
+                y=[indoor_hourly.get(hour, None) for hour in hours],
+                name=f"Indoor",
+                line=dict(color="#1f77b4", dash='solid'),
+                fill='tozeroy',
+                fillcolor=f"rgba(31,119,180,0.05)"
+            ))
+        if outdoor_season is not None and not outdoor_season.empty:
+            outdoor_hourly = outdoor_season[pollutant].groupby(outdoor_season.index.hour).mean()
+            fig.add_trace(go.Scatter(
+                x=hours,
+                y=[outdoor_hourly.get(hour, None) for hour in hours],
+                name=f"Outdoor",
+                line=dict(color="#ff7f0e", dash='solid'),
+                fill=None
+            ))
+        fig.update_layout(
+            title=f"{season} - Indoor vs Outdoor {pollutant} ({location})",
+            xaxis_title="Hour of Day",
+            yaxis_title=f"{pollutant} Value",
+            hovermode='x unified',
+            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        )
+        figs.append(fig)
+    return figs
+
 def main():
     st.title("Seasonal Data Comparison")
     st.write("Compare indoor and outdoor air quality patterns across seasons")
@@ -273,7 +331,7 @@ def main():
                     indoor_df = pd.DataFrame(indoor_rows, columns=["datetime", selected_pollutant])
                     indoor_df['datetime'] = pd.to_datetime(indoor_df['datetime'])
                     indoor_df.set_index('datetime', inplace=True)
-                    #remove the row if the zero valeus are present in the data
+                    #remove the row if the zero valusepresent in the data
                     indoor_df = indoor_df[indoor_df[selected_pollutant]!= 0]
 
                     # Fetch outdoor data if mapping exists
@@ -302,11 +360,17 @@ def main():
                     fig_indoor, fig_outdoor, indoor_data, outdoor_data = plot_seasonal_comparison(
                         indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant
                     )
-
+                    figs_seasonal = plot_seasonal_indoor_outdoor(
+                        indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant
+                    )
                     # Display plots
                     st.plotly_chart(fig_indoor, use_container_width=True)
                     if outdoor_df is not None:
                         st.plotly_chart(fig_outdoor, use_container_width=True)
+                    st.markdown("---")
+                    st.subheader("Indoor vs Outdoor by Season")
+                    for fig in figs_seasonal:
+                        st.plotly_chart(fig, use_container_width=True)
 
                     # Add download buttons
                     col1, col2 = st.columns(2)
