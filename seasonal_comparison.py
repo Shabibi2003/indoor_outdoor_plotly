@@ -360,11 +360,17 @@ def main():
                     fig_indoor, fig_outdoor, indoor_data, outdoor_data = plot_seasonal_comparison(
                         indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant
                     )
-
+                    figs_seasonal = plot_seasonal_indoor_outdoor(
+                        indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant
+                    )
                     # Display plots
                     st.plotly_chart(fig_indoor, use_container_width=True)
                     if outdoor_df is not None:
                         st.plotly_chart(fig_outdoor, use_container_width=True)
+                    st.markdown("---")
+                    st.subheader("Indoor vs Outdoor by Season")
+                    for fig in figs_seasonal:
+                        st.plotly_chart(fig, use_container_width=True)
 
                     # Add download buttons
                     col1, col2 = st.columns(2)
