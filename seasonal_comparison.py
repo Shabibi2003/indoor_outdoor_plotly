@@ -219,7 +219,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
         outdoor_download_data.index = range(24)
         outdoor_download_data.index.name = 'Hour'
 
-    return fig_indoor, fig_outdoor, indoor_download_data, outdoor_download_data
+    return fig_indoor, fig_outdoor, fig_season_compare, indoor_download_data, outdoor_download_data
 
 def main():
     st.title("Seasonal Data Comparison")
@@ -299,15 +299,41 @@ def main():
                             outdoor_df=outdoor_df[outdoor_df[selected_pollutant]!= 0]
 
                     # Generate plots
-                    fig_indoor, fig_outdoor, indoor_data, outdoor_data = plot_seasonal_comparison(
-                        indoor_df, outdoor_df, device_data[selected_device][2], selected_pollutant
+                    fig_season_compare = go.Figure()
+                    # Overlay both indoor and outdoor for each season
+                    for season, (months, color) in seasons.items():
+                        # Indoor
+                        if season in all_seasons_data_indoor:
+                            hourly_data = all_seasons_data_indoor[season]
+                            fig_season_compare.add_trace(go.Scatter(
+                                x=list(range(24)),
+                                y=[hourly_data.get(hour, None) for hour in range(24)],
+                                name=f"Indoor {season}",
+                                line=dict(color=color, dash='solid'),
+                                opacity=0.7
+                            ))
+                        # Outdoor
+                        if season in all_seasons_data_outdoor:
+                            hourly_data = all_seasons_data_outdoor[season]
+                            fig_season_compare.add_trace(go.Scatter(
+                                x=list(range(24)),
+                                y=[hourly_data.get(hour, None) for hour in range(24)],
+                                name=f"Outdoor {season}",
+                                line=dict(color=color, dash='dash'),
+                                opacity=0.7
+                            ))
+                    fig_season_compare.update_layout(
+                        title=f"Indoor vs Outdoor Seasonal Comparison - {location}",
+                        xaxis_title="Hour of Day",
+                        yaxis_title=f"{pollutant} Value",
+                        hovermode='x unified'
                     )
 
                     # Display plots
                     st.plotly_chart(fig_indoor, use_container_width=True)
                     if outdoor_df is not None:
                         st.plotly_chart(fig_outdoor, use_container_width=True)
-
+                        st.plotly_chart(fig_season_compare, use_container_width=True)
                     # Add download buttons
                     col1, col2 = st.columns(2)
                     with col1:
