@@ -256,9 +256,9 @@ def plot_seasonal_indoor_outdoor(indoor_df, outdoor_df, location, pollutant):
                 x=hours,
                 y=[indoor_hourly.get(hour, None) for hour in hours],
                 name=f"Indoor",
-                line=dict(color=color, dash='solid'),
+                line=dict(color="#1f77b4", dash='solid'),
                 fill='tozeroy',
-                fillcolor=f"rgba(0,0,0,0.05)"
+                fillcolor=f"rgba(31,119,180,0.05)"
             ))
         if outdoor_season is not None and not outdoor_season.empty:
             outdoor_hourly = outdoor_season[pollutant].groupby(outdoor_season.index.hour).mean()
@@ -266,7 +266,7 @@ def plot_seasonal_indoor_outdoor(indoor_df, outdoor_df, location, pollutant):
                 x=hours,
                 y=[outdoor_hourly.get(hour, None) for hour in hours],
                 name=f"Outdoor",
-                line=dict(color=color, dash='dash'),
+                line=dict(color="#ff7f0e", dash='solid'),
                 fill=None
             ))
         fig.update_layout(
@@ -331,7 +331,7 @@ def main():
                     indoor_df = pd.DataFrame(indoor_rows, columns=["datetime", selected_pollutant])
                     indoor_df['datetime'] = pd.to_datetime(indoor_df['datetime'])
                     indoor_df.set_index('datetime', inplace=True)
-                    #remove the row if the zero valeus are present in the data
+                    #remove the row if the zero valusepresent in the data
                     indoor_df = indoor_df[indoor_df[selected_pollutant]!= 0]
 
                     # Fetch outdoor data if mapping exists
