@@ -273,6 +273,8 @@ def main():
                     indoor_df = pd.DataFrame(indoor_rows, columns=["datetime", selected_pollutant])
                     indoor_df['datetime'] = pd.to_datetime(indoor_df['datetime'])
                     indoor_df.set_index('datetime', inplace=True)
+                    #remove the row if the zero valeus are present in the data
+                    indoor_df = indoor_df[indoor_df[selected_pollutant]!= 0]
 
                     # Fetch outdoor data if mapping exists
                     outdoor_df = None
@@ -294,6 +296,7 @@ def main():
                             outdoor_df = pd.DataFrame(outdoor_rows, columns=["datetime", selected_pollutant])
                             outdoor_df['datetime'] = pd.to_datetime(outdoor_df['datetime'])
                             outdoor_df.set_index('datetime', inplace=True)
+                            outdoor_df=outdoor_df[outdoor_df[selected_pollutant]!= 0]
 
                     # Generate plots
                     fig_indoor, fig_outdoor, indoor_data, outdoor_data = plot_seasonal_comparison(
