@@ -191,7 +191,10 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
 
     # Update layout for both figures
     fig_indoor.update_layout(
-        title=f"Indoor {pollutant} Seasonal Patterns - {location}",
+        title = dict(
+            text = f"Indoor {pollutant} Seasonal Patterns - {location}",
+            font = dict(size = 24)
+        ),
         xaxis_title="Hour of Day",
         yaxis_title=f"{pollutant} Value",
         hovermode='x unified'
