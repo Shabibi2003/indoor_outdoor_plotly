@@ -286,6 +286,7 @@ def plot_seasonal_indoor_outdoor(indoor_df, outdoor_df, location, pollutant):
             font=dict(size=14)  # Increase legend font size here
         )
         )
+        figs.append(fig)
 
     return figs
 
