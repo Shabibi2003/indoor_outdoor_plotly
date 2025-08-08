@@ -150,7 +150,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
                 name=f"{season}",
                 line=dict(color=color),
                 fill='tonexty',
-                fillcolor=f"rgba({r}, {g}, {b}, 0.1)"
+                fillcolor=f"rgba({r}, {g}, {b}, 0.3)"
             ))
 
     # Process outdoor data (if available)
@@ -197,7 +197,14 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
         ),
         xaxis_title="Hour of Day",
         yaxis_title=f"{pollutant} Value",
-        hovermode='x unified'
+        hovermode='x unified',
+        xaxis=dict(
+            tickmode='linear',
+            dtick=1,
+            tick0=0,
+            tickvals=list(range(24)),
+            ticktext=[str(i) for i in range(24)]
+        )
     )
 
     if outdoor_df is not None:
@@ -205,7 +212,14 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
             title=f"Outdoor {pollutant} Seasonal Patterns - {location}",
             xaxis_title="Hour of Day",
             yaxis_title=f"{pollutant} Value",
-            hovermode='x unified'
+            hovermode='x unified',
+            xaxis=dict(
+                tickmode='linear',
+                dtick=1,
+                tick0=0,
+                tickvals=list(range(24)),
+                ticktext=[str(i) for i in range(24)]
+            )
         )
 
     # Create DataFrames for download
@@ -273,21 +287,28 @@ def plot_seasonal_indoor_outdoor(indoor_df, outdoor_df, location, pollutant):
                 fill=None
             ))
         fig.update_layout(
-        title=dict(
-            text=f"{season} - Indoor vs Outdoor {pollutant} ({location})",
-            font=dict(size=24)  # Increase title font size here
-        ),
-        xaxis_title="Hour of Day",
-        yaxis_title=f"{pollutant} Value",
-        hovermode='x unified',
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1,
-            font=dict(size=20)#Increase legend font size here
-        )
+            title=dict(
+                text=f"{season} - Indoor vs Outdoor {pollutant} ({location})",
+                font=dict(size=24)
+            ),
+            xaxis_title="Hour of Day",
+            yaxis_title=f"{pollutant} Value",
+            hovermode='x unified',
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=1.02,
+                xanchor="right",
+                x=1,
+                font=dict(size=20)
+            ),
+            xaxis=dict(
+                tickmode='linear',
+                dtick=1,
+                tick0=0,
+                tickvals=list(range(24)),
+                ticktext=[str(i) for i in range(24)]
+            )
         )
         figs.append(fig)
 
