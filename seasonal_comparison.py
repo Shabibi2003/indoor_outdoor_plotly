@@ -191,7 +191,10 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
 
     # Update layout for both figures
     fig_indoor.update_layout(
-        title=f"Indoor {pollutant} Seasonal Patterns - {location}",
+        title = dict(
+            text = f"Indoor {pollutant} Seasonal Patterns - {location}",
+            font = dict(size = 24)
+        ),
         xaxis_title="Hour of Day",
         yaxis_title=f"{pollutant} Value",
         hovermode='x unified'
@@ -270,19 +273,30 @@ def plot_seasonal_indoor_outdoor(indoor_df, outdoor_df, location, pollutant):
                 fill=None
             ))
         fig.update_layout(
-            title=f"{season} - Indoor vs Outdoor {pollutant} ({location})",
-            xaxis_title="Hour of Day",
-            yaxis_title=f"{pollutant} Value",
-            hovermode='x unified',
-            legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1)
+        title=dict(
+            text=f"{season} - Indoor vs Outdoor {pollutant} ({location})",
+            font=dict(size=24)  # Increase title font size here
+        ),
+        xaxis_title="Hour of Day",
+        yaxis_title=f"{pollutant} Value",
+        hovermode='x unified',
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(size=20)#Increase legend font size here
+        )
         )
         figs.append(fig)
+
     return figs
 
 def main():
     st.title("Seasonal Data Comparison")
     st.write("Compare indoor and outdoor air quality patterns across seasons")
-
+    
     # Create device and pollutant selection in two columns
     col1, col2 = st.columns(2)
     with col1:
