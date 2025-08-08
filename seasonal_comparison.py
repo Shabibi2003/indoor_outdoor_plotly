@@ -102,7 +102,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
     # Define seasons with their months and colors
     seasons = {
         "Spring": ([3, 4], '#90EE90'),      # March 2024, April 2024, March 2025
-        "Summer": ([5, 6], '#FFD700'),      # May 2024, June 2024
+        "Summer": ([5, 6], "#FF03DD"),      # May 2024, June 2024
         "Monsoon": ([7, 8, 9], '#FFA500'),  # July 2024, August 2024, September 2024
         "Autumn": ([10, 11], '#D2691E'),    # October 2024, November 2024
         "Winter": ([12, 1, 2], '#87CEEB')   # December 2024, January 2024/2025, February 2024/2025
@@ -186,7 +186,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
                     name=f"{season}",
                     line=dict(color=color),
                     fill='tonexty',
-                    fillcolor=f"rgba({r}, {g}, {b}, 0.1)"
+                    fillcolor=f"rgba({r}, {g}, {b}, 0.3)"
                 ))
 
     # Update layout for both figures
