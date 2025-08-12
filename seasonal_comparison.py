@@ -42,7 +42,7 @@ device_data = {
         "1203240075": ("A 48/B, Third Floor, Abul Fazal Enclave Part II, New Delhi", "Residential","Shahzeb Kitchen"),
         "1201240072": ("448, Sector-9, Pocket-1 DDA Flats Dwarka, New Delhi-110075", "Residential","Lakshmi Living Room"),
         "1201240077": ("448, Sector-9, Pocket-1 DDA Flats Dwarka, New Delhi-110075", "Residential","Lakshmi Kitchen"),
-        "1203240079": ("C-403, Prince Apartments, Plot 54, I.P. Extension, Patparganj, Delhi - 110092", "Residential, Multi-family","Piyush Living Room"),
+        "1203240079": ("C-403, Prince Apartments, Plot 54, I.P. Extension, Patparganj, Delhi - 110092", "Residential, Multi-family","Piyush Living Room - Prince Aprt."),
         "1201240079": ("B-3/527, Ekta Gardens Apts, Patparganj, Delhi - 110092", "Residential","Piyush Bedroom"),
         "1201240085": ("B-3/527, Ekta Gardens Apts, Patparganj, Delhi - 110092", "Residential","Piyush Living Room"),
         "1203240083": ("Flat No. 25, Tower E2, Sector E1, Vasant Kunj, New Delhi", "Residential","Sheetal Living Room"),
@@ -102,7 +102,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
     # Define seasons with their months and colors
     seasons = {
         "Spring": ([3, 4], '#90EE90'),      # March 2024, April 2024, March 2025
-        "Summer": ([5, 6], '#FFD700'),      # May 2024, June 2024
+        "Summer": ([5, 6], "#F77FE3"),      # May 2024, June 2024
         "Monsoon": ([7, 8, 9], '#FFA500'),  # July 2024, August 2024, September 2024
         "Autumn": ([10, 11], '#D2691E'),    # October 2024, November 2024
         "Winter": ([12, 1, 2], '#87CEEB')   # December 2024, January 2024/2025, February 2024/2025
@@ -150,7 +150,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
                 name=f"{season}",
                 line=dict(color=color),
                 fill='tonexty',
-                fillcolor=f"rgba({r}, {g}, {b}, 0.1)"
+                fillcolor=f"rgba({r}, {g}, {b}, 0.3)"
             ))
 
     # Process outdoor data (if available)
@@ -186,7 +186,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
                     name=f"{season}",
                     line=dict(color=color),
                     fill='tonexty',
-                    fillcolor=f"rgba({r}, {g}, {b}, 0.1)"
+                    fillcolor=f"rgba({r}, {g}, {b}, 0.3)"
                 ))
 
     # Update layout for both figures
@@ -197,7 +197,14 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
         ),
         xaxis_title="Hour of Day",
         yaxis_title=f"{pollutant} Value",
-        hovermode='x unified'
+        hovermode='x unified',
+        xaxis=dict(
+            tickmode='linear',
+            dtick=1,
+            tick0=0,
+            tickvals=list(range(24)),
+            ticktext=[str(i) for i in range(24)]
+        )
     )
 
     if outdoor_df is not None:
@@ -205,7 +212,14 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
             title=f"Outdoor {pollutant} Seasonal Patterns - {location}",
             xaxis_title="Hour of Day",
             yaxis_title=f"{pollutant} Value",
-            hovermode='x unified'
+            hovermode='x unified',
+            xaxis=dict(
+                tickmode='linear',
+                dtick=1,
+                tick0=0,
+                tickvals=list(range(24)),
+                ticktext=[str(i) for i in range(24)]
+            )
         )
 
     # Create DataFrames for download
@@ -273,21 +287,28 @@ def plot_seasonal_indoor_outdoor(indoor_df, outdoor_df, location, pollutant):
                 fill=None
             ))
         fig.update_layout(
-        title=dict(
-            text=f"{season} - Indoor vs Outdoor {pollutant} ({location})",
-            font=dict(size=24)  # Increase title font size here
-        ),
-        xaxis_title="Hour of Day",
-        yaxis_title=f"{pollutant} Value",
-        hovermode='x unified',
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1,
-            font=dict(size=20)#Increase legend font size here
-        )
+            title=dict(
+                text=f"{season} - Indoor vs Outdoor {pollutant} ({location})",
+                font=dict(size=24)
+            ),
+            xaxis_title="Hour of Day",
+            yaxis_title=f"{pollutant} Value",
+            hovermode='x unified',
+            legend=dict(
+                orientation="h",
+                yanchor="bottom",
+                y=1.02,
+                xanchor="right",
+                x=1,
+                font=dict(size=20)
+            ),
+            xaxis=dict(
+                tickmode='linear',
+                dtick=1,
+                tick0=0,
+                tickvals=list(range(24)),
+                ticktext=[str(i) for i in range(24)]
+            )
         )
         figs.append(fig)
 
