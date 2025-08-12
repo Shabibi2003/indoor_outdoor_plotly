@@ -229,7 +229,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
     legend=dict(
         font=dict(family="Arial Black", size=14, color="black")
     )
-    )
+)
 
 
     if outdoor_df is not None:
@@ -464,5 +464,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
