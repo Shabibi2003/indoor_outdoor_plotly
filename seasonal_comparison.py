@@ -55,7 +55,7 @@ device_data = {
         "1201240073": ("569 sector A pocket C Vasant Kunj, Delhi - 110070", "Residential","Tanmay Tathagat"),
         "1203240080": ("F-5, 318-N, Chirag Delhi, Delhi-110017", "Residential","Abhishek Bedroom"),
         "1201240074": ("F-5, 318-N, Chirag Delhi, Delhi-110017", "Residential","Abhishek Living Room"),
-        "1203240077": ("B-2/51-A, Keshav Puram", "Apartment","Gurneet Mannat Room"),
+        "1203240077": ("B-2/51-A, Keshav Puram", "Apartment","Gurneet Bedroom"),
         "1203240082": ("B-2/51-A, Keshav Puram", "Apartment","Gurneet Prabhansh Room"),
         "1202240029": ("St. Mary's School, Dwarka Sec-19", "Office","St. Mary's School (XII C)"),
         "1202240028": ("St. Mary's School, Dwarka Sec-19", "Office","St. Mary's School (sr. Library)"),
