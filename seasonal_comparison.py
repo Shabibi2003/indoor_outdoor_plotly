@@ -222,9 +222,9 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
         ticktext=[str(i) for i in range(24)],
         tickfont=dict(family="Arial Black", size=12, color="black")),
     yaxis=dict(
-        tickfont=dict(family="Arial Black", size=12, color="black")),
+        tickfont=dict(family="Arial Black", size=10, color="black")),
     legend=dict(
-        font=dict(family="Arial Black", size=14, color="black"))
+        font=dict(family="Arial Black", size=12, color="black"))
     
     )
 
