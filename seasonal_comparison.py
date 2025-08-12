@@ -42,7 +42,7 @@ device_data = {
         "1203240075": ("A 48/B, Third Floor, Abul Fazal Enclave Part II, New Delhi", "Residential","Shahzeb Kitchen"),
         "1201240072": ("448, Sector-9, Pocket-1 DDA Flats Dwarka, New Delhi-110075", "Residential","Lakshmi Living Room"),
         "1201240077": ("448, Sector-9, Pocket-1 DDA Flats Dwarka, New Delhi-110075", "Residential","Lakshmi Kitchen"),
-        "1203240079": ("C-403, Prince Apartments, Plot 54, I.P. Extension, Patparganj, Delhi - 110092", "Residential, Multi-family","Piyush Living Room"),
+        "1203240079": ("C-403, Prince Apartments, Plot 54, I.P. Extension, Patparganj, Delhi - 110092", "Residential, Multi-family","Piyush Living Room - Prince Aprt."),
         "1201240079": ("B-3/527, Ekta Gardens Apts, Patparganj, Delhi - 110092", "Residential","Piyush Bedroom"),
         "1201240085": ("B-3/527, Ekta Gardens Apts, Patparganj, Delhi - 110092", "Residential","Piyush Living Room"),
         "1203240083": ("Flat No. 25, Tower E2, Sector E1, Vasant Kunj, New Delhi", "Residential","Sheetal Living Room"),
@@ -439,3 +439,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
