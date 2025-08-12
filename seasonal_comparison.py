@@ -191,21 +191,46 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
 
     # Update layout for both figures
     fig_indoor.update_layout(
-        title = dict(
-            text = f"Indoor {pollutant} Seasonal Patterns - {location}",
-            font = dict(size = 24)
-        ),
-        xaxis_title="Hour of Day",
-        yaxis_title=f"{pollutant} Value",
-        hovermode='x unified',
-        xaxis=dict(
-            tickmode='linear',
-            dtick=1,
-            tick0=0,
-            tickvals=list(range(24)),
-            ticktext=[str(i) for i in range(24)]
-        )
+    #     title = dict(
+    #         text = f"Indoor {pollutant} Seasonal Patterns - {location}",
+    #         font = dict(size = 24)
+    #     ),
+    #     xaxis_title="Hour of Day",
+    #     yaxis_title=f"{pollutant} Value",
+    #     hovermode='x unified',
+    #     xaxis=dict(
+    #         tickmode='linear',
+    #         dtick=1,
+    #         tick0=0,
+    #         tickvals=list(range(24)),
+    #         ticktext=[str(i) for i in range(24)]
+    #     )
+    # )
+
+    fig_indoor.update_layout(
+    title=dict(
+        text=f"Indoor {pollutant} Seasonal Patterns - {location}",
+        font=dict(size=24)
+    ),
+    xaxis_title="Hour of Day",
+    yaxis_title=f"{pollutant} Value",
+    hovermode='x unified',
+    xaxis=dict(
+        tickmode='linear',
+        dtick=1,
+        tick0=0,
+        tickvals=list(range(24)),
+        ticktext=[str(i) for i in range(24)],
+        tickfont=dict(family="Arial Black", size=12, color="black")
+    ),
+    yaxis=dict(
+        tickfont=dict(family="Arial Black", size=12, color="black")
+    ),
+    legend=dict(
+        font=dict(family="Arial Black", size=14, color="black")
     )
+    )
+
 
     if outdoor_df is not None:
         fig_outdoor.update_layout(
@@ -439,4 +464,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
