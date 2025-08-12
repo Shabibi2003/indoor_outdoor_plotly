@@ -190,7 +190,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
                 ))
 
     # Update layout for both figures
-    fig_indoor.update_layout(
+    # fig_indoor.update_layout(
     #     title = dict(
     #         text = f"Indoor {pollutant} Seasonal Patterns - {location}",
     #         font = dict(size = 24)
