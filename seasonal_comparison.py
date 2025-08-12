@@ -210,8 +210,7 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
     fig_indoor.update_layout(
     title=dict(
         text=f"Indoor {pollutant} Seasonal Patterns - {location}",
-        font=dict(size=24)
-    ),
+        font=dict(size=24)),
     xaxis_title="Hour of Day",
     yaxis_title=f"{pollutant} Value",
     hovermode='x unified',
@@ -221,14 +220,12 @@ def plot_seasonal_comparison(indoor_df, outdoor_df, location, pollutant):
         tick0=0,
         tickvals=list(range(24)),
         ticktext=[str(i) for i in range(24)],
-        tickfont=dict(family="Arial Black", size=12, color="black")
-    ),
+        tickfont=dict(family="Arial Black", size=12, color="black")),
     yaxis=dict(
-        tickfont=dict(family="Arial Black", size=12, color="black")
-    ),
+        tickfont=dict(family="Arial Black", size=12, color="black")),
     legend=dict(
-        font=dict(family="Arial Black", size=14, color="black")
-    )
+        font=dict(family="Arial Black", size=14, color="black"))
+    
     )
 
 
@@ -464,6 +461,7 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
 
 
